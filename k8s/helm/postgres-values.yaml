@@ -1,0 +1,17 @@
+global:
+  postgresql:
+    postgresqlUsername: postgres
+    postgresqlDatabase: postgres
+
+auth:
+  existingSecret: "postgres-secret"
+  existingSecretPasswordKey: "POSTGRES_PASSWORD"
+
+replicaCount: 1
+
+primary:
+  persistence:
+    size: 1Gi
+  service:
+    name: db
+

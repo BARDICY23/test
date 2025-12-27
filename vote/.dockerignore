@@ -1,0 +1,22 @@
+__pycache__/
+*.pyc
+*.pyo
+
+# No need to include local venv
+venv/
+.env
+*.env
+
+# Logs and cache
+*.log
+*.tmp
+.cache/
+
+# Git & documentation
+.git
+.gitignore
+*.md
+
+# Docker metadata
+Dockerfile
+.dockerignore

@@ -1,0 +1,15 @@
+cluster:
+  enabled: false
+
+usePassword: false
+
+replica:
+  replicaCount: 1
+
+master:
+  persistence:
+    enabled: false
+  service:
+    name: redis
+auth:
+  enabled: false

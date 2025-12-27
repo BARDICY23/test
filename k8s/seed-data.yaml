@@ -1,0 +1,43 @@
+# -----------------------------
+# ConfigMap for seed-data environment
+# -----------------------------
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: seed-config
+  namespace: voting-app
+data:
+  POSTGRES_HOST: postgres-postgresql
+  POSTGRES_PORT: "5432"
+  POSTGRES_DB: postgres
+  POSTGRES_USER: postgres
+  REDIS_HOST: redis-master
+  REDIS_PORT: "6379"
+---
+# -----------------------------
+# Seed-data Job
+# -----------------------------
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: seed-data
+  namespace: voting-app
+spec:
+  backoffLimit: 1   # retry only once on failure
+  template:
+    metadata:
+      labels:
+        app: seed-data
+    spec:
+      serviceAccountName: voting-app-sa
+      restartPolicy: Never
+      containers:
+      - name: seed-data
+        image: devops-seed-data:latest # replace with your image
+        imagePullPolicy: IfNotPresent
+        envFrom:
+        - configMapRef:
+            name: seed-config
+        - secretRef:
+            name: postgres-secret
+        # Optional probes: not needed for a one-time Job
